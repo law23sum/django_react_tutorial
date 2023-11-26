@@ -1,5 +1,5 @@
 """
-URL configuration for django_react_tuturial project.
+URL configuration for django_react_tutorial project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -16,14 +16,30 @@ Including another URLconf
 """
 import django.urls
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.urls import include, path
+from rest_framework import routers, serializers, viewsets
 
+from api.serializers import UserViewSet
+
+
+# Routers provide a way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r"users", UserViewSet)
 
 urlpatterns = [
         path("", django.urls.include("api.urls")),
         path("admin/", admin.site.urls),
+        # Wire up our API using automatic URL routing.
+        # Additionally, we include login URLs for the browsable API.
+        path("", include(router.urls)),
+        path(
+                "api-auth/",
+                include("rest_framework.urls", namespace="rest_framework")
+        ),
+
 ]
 
 urlpatterns += [
-        path('api-auth/', include('rest_framework.urls')),
+        path("api-auth/", include("rest_framework.urls")),
 ]
