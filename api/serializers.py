@@ -1,10 +1,16 @@
 from django.contrib.auth.models import User
-from rest_framework import serializers
-
+from rest_framework import routers, serializers, viewsets
 from api.models import Snippet
 
+# Serializers define the API representation.
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'email', 'is_staff']
 
-
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -40,3 +46,4 @@ class SnippetSerializer(serializers.ModelSerializer):
         instance.style = validated_data.get('style', instance.style)
         instance.save()
         return instance
+

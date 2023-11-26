@@ -1,14 +1,18 @@
 
 Commands
-python manage.py runserver
+python manage.py runserver                                  run development server
 python manage.py runserver 8080
 python manage.py runserver 0.0.0.0:8000
 
+rm -f db.sqlite3                                            database deletion
+rm -r [app_name]/migrations
 
 python manage.py makemigrations [app_name]                  apply those changes to the db. stores changes to your models (and thus your database schema)
 python manage.py migrate                                    create migrations for changes & create tables in db prior to usage
 python manaddge.py sqlmigrate [app_name] 0001               table names automatically generate combining app_name & model's lowercase name
 
 
-rm -f db.sqlite3                                            database deletion
-rm -r [app_name]/migrations
+npm start                                                   run development server
+npm run build                                               bundles the app into static files for production
+npm test                                                    starts test runner
+npm run eject                                               copies build dependencies, configuration files and scripts into the app directory. If you do this, you can’t go back!
